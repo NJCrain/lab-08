@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS weather;
 DROP TABLE IF EXISTS yelp;
 DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS locations;
 
 CREATE TABLE locations (
   id SERIAL PRIMARY KEY,
@@ -14,16 +14,18 @@ CREATE TABLE locations (
 CREATE TABLE weather (
   id SERIAL PRIMARY KEY,
   forecast VARCHAR(255),
-  time VARCHAR(255)
+  time VARCHAR(255),
+  location_id INTEGER NOT NULL REFERENCES locations(id)
 );
 
 CREATE TABLE yelp (
   id SERIAL PRIMARY KEY,
   name VARCHAR(50),
   image_url VARCHAR(255),
-  price MONEY,
-  rating NUMERIC(10,9),
-  url VARCHAR(255)
+  price VARCHAR(5),
+  rating NUMERIC(3,2),
+  url VARCHAR(255),
+  location_id INTEGER NOT NULL REFERENCES locations(id)
 );
 
 CREATE TABLE movies (
@@ -33,6 +35,7 @@ CREATE TABLE movies (
   average_votes NUMERIC(3,2),
   total_votes INTEGER,
   image_url VARCHAR(255),
-  popularity NUMERIC(10,8),
-  released_on VARCHAR(255)
+  popularity NUMERIC(4,3),
+  released_on VARCHAR(255),
+  location_id INTEGER NOT NULL REFERENCES locations(id)
 );
